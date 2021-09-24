@@ -7,8 +7,9 @@ use Faker\Generator as Faker;
 
 $factory->define(Permit::class, function (Faker $faker) {
     return [
-        'user_id' => $faker->name,
-        '' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
+        'user_id' => $faker->unique()->numberBetween(1, 20),
+        'date_permit' => now(),
+        'note' => $faker->text,
+        'status' => 1
     ];
 });

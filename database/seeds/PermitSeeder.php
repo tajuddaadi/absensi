@@ -11,6 +11,6 @@ class PermitSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $permits = factory(\App\Permit::class, 20)->create();
     }
 }
