@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Controllers\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use Faker\Generator as Faker;
 
 class PermitControllerTest extends TestCase
 {
@@ -13,10 +14,18 @@ class PermitControllerTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+    public function testPermitData()
     {
-        $response = $this->get('/');
+        $user = factory(Permit::class)->create();
 
-        $response->assertStatus(200);
+        $response = $this->actingAs($user, 'api')
+            ->getJson('/api/permit-all');
+
+        $response
+            ->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'data' => true,
+            ]);
     }
 }
