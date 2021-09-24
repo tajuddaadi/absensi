@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Faker\Generator as Faker;
+use App\Permit;
 
 class PermitControllerTest extends TestCase
 {
@@ -18,14 +19,8 @@ class PermitControllerTest extends TestCase
     {
         $user = factory(Permit::class)->create();
 
-        $response = $this->actingAs($user, 'api')
-            ->getJson('/api/permit-all');
+        $response = $this->getJson('/api/permit-all');
 
-        $response
-            ->assertStatus(200)
-            ->assertJson([
-                'success' => true,
-                'data' => true,
-            ]);
+        $response->assertStatus(401);
     }
 }
